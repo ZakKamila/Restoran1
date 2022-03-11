@@ -1,0 +1,23 @@
+﻿<Window x:Class="Ресторан.MenuGost"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ресторан"
+        mc:Ignorable="d"
+        Title="MenuGost" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52*"/>
+            <RowDefinition Height="369*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#D0B9AC" Panel.ZIndex="-2" Margin="0,36,0.333,-14.333" Grid.RowSpan="2" MaxHeight="369">
+            <Image Margin="399,94,105,106" Source="Resources/Image1.png" Stretch="Fill"/>
+        </Grid>
+        <TextBlock Text="CARDAMON" FontSize="30" Margin="316,10,295.333,10" HorizontalAlignment="Center" FontFamily="Pristina" Width="182"/>
+        <Button x:Name="MENU" Click="MENU_Click" Content="Меню" HorizontalAlignment="Center" Margin="97,111,574.333,227.667" Width="122" Grid.Row="1"/>
+       
+        <Button x:Name="Galery" Click="Galery_Click" Content="Галерея" HorizontalAlignment="Center" Margin="97,152,574.333,186.667" Width="122" Grid.Row="1"/>
+        <Button x:Name="info" Click="info_Click" Content="Информация" HorizontalAlignment="Center" Margin="97,195,574.333,143.667" Width="122" Grid.Row="1"/>
+    </Grid>
+</Window>

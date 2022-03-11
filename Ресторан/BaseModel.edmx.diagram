@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7306d5d7ffd44a858c8d502eec67383c" Name="Diagram1">
+        <EntityTypeShape EntityType="Ресторан1Model.Блюдо" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ресторан1Model.Заказ" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ресторан1Model.Пользователь" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ресторан1Model.СтрокаЗаказа" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ресторан1Model.ФотоБлюда" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="Ресторан1Model.FK_СтрокаЗаказа_Блюдо" ManuallyRouted="false" />
+        <AssociationConnector Association="Ресторан1Model.FK_ФотоБлюда_Блюдо" ManuallyRouted="false" />
+        <AssociationConnector Association="Ресторан1Model.FK_Заказ_Пользователь" ManuallyRouted="false" />
+        <AssociationConnector Association="Ресторан1Model.FK_СтрокаЗаказа_Заказ" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

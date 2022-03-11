@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Ресторан1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Блюдо">
+          <Key>
+            <PropertyRef Name="ИД_блюда" />
+          </Key>
+          <Property Name="ИД_блюда" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Стоимость" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ИД_заказа" />
+          </Key>
+          <Property Name="ИД_заказа" Type="int" Nullable="false" />
+          <Property Name="ИД_пользователь" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Пользователь">
+          <Key>
+            <PropertyRef Name="ИД_пользователь" />
+          </Key>
+          <Property Name="ИД_пользователь" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Эл.почта" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="СтрокаЗаказа">
+          <Key>
+            <PropertyRef Name="ИД_строкаЗаказа" />
+          </Key>
+          <Property Name="ИД_строкаЗаказа" Type="int" Nullable="false" />
+          <Property Name="ИД_заказа" Type="int" Nullable="false" />
+          <Property Name="ИД_блюда" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ФотоБлюда">
+          <Key>
+            <PropertyRef Name="ИД_фото" />
+          </Key>
+          <Property Name="ИД_фото" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ИД_блюда" Type="int" Nullable="false" />
+          <Property Name="Фото_ссылка" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Заказ_Пользователь">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="ИД_пользователь" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИД_пользователь" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_СтрокаЗаказа_Блюдо">
+          <End Role="Блюдо" Type="Self.Блюдо" Multiplicity="1" />
+          <End Role="СтрокаЗаказа" Type="Self.СтрокаЗаказа" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюдо">
+              <PropertyRef Name="ИД_блюда" />
+            </Principal>
+            <Dependent Role="СтрокаЗаказа">
+              <PropertyRef Name="ИД_блюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_СтрокаЗаказа_Заказ">
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="1" />
+          <End Role="СтрокаЗаказа" Type="Self.СтрокаЗаказа" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заказ">
+              <PropertyRef Name="ИД_заказа" />
+            </Principal>
+            <Dependent Role="СтрокаЗаказа">
+              <PropertyRef Name="ИД_заказа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ФотоБлюда_Блюдо">
+          <End Role="Блюдо" Type="Self.Блюдо" Multiplicity="1" />
+          <End Role="ФотоБлюда" Type="Self.ФотоБлюда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюдо">
+              <PropertyRef Name="ИД_блюда" />
+            </Principal>
+            <Dependent Role="ФотоБлюда">
+              <PropertyRef Name="ИД_блюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Ресторан1ModelContainer">
+          <EntitySet Name="Блюдо" EntityType="Self.Блюдо" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователь" EntityType="Self.Пользователь" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="СтрокаЗаказа" EntityType="Self.СтрокаЗаказа" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ФотоБлюда" EntityType="Self.ФотоБлюда" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Заказ_Пользователь" Association="Self.FK_Заказ_Пользователь">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_СтрокаЗаказа_Блюдо" Association="Self.FK_СтрокаЗаказа_Блюдо">
+            <End Role="Блюдо" EntitySet="Блюдо" />
+            <End Role="СтрокаЗаказа" EntitySet="СтрокаЗаказа" />
+          </AssociationSet>
+          <AssociationSet Name="FK_СтрокаЗаказа_Заказ" Association="Self.FK_СтрокаЗаказа_Заказ">
+            <End Role="Заказ" EntitySet="Заказ" />
+            <End Role="СтрокаЗаказа" EntitySet="СтрокаЗаказа" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ФотоБлюда_Блюдо" Association="Self.FK_ФотоБлюда_Блюдо">
+            <End Role="Блюдо" EntitySet="Блюдо" />
+            <End Role="ФотоБлюда" EntitySet="ФотоБлюда" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Ресторан1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Блюдо">
+          <Key>
+            <PropertyRef Name="ИД_блюда" />
+          </Key>
+          <Property Name="ИД_блюда" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="СтрокаЗаказа" Relationship="Self.FK_СтрокаЗаказа_Блюдо" FromRole="Блюдо" ToRole="СтрокаЗаказа" />
+          <NavigationProperty Name="ФотоБлюда" Relationship="Self.FK_ФотоБлюда_Блюдо" FromRole="Блюдо" ToRole="ФотоБлюда" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ИД_заказа" />
+          </Key>
+          <Property Name="ИД_заказа" Type="Int32" Nullable="false" />
+          <Property Name="ИД_пользователь" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Пользователь" Relationship="Self.FK_Заказ_Пользователь" FromRole="Заказ" ToRole="Пользователь" />
+          <NavigationProperty Name="СтрокаЗаказа" Relationship="Self.FK_СтрокаЗаказа_Заказ" FromRole="Заказ" ToRole="СтрокаЗаказа" />
+        </EntityType>
+        <EntityType Name="Пользователь">
+          <Key>
+            <PropertyRef Name="ИД_пользователь" />
+          </Key>
+          <Property Name="ИД_пользователь" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Эл_почта" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Пользователь" FromRole="Пользователь" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="СтрокаЗаказа">
+          <Key>
+            <PropertyRef Name="ИД_строкаЗаказа" />
+          </Key>
+          <Property Name="ИД_строкаЗаказа" Type="Int32" Nullable="false" />
+          <Property Name="ИД_заказа" Type="Int32" Nullable="false" />
+          <Property Name="ИД_блюда" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Блюдо" Relationship="Self.FK_СтрокаЗаказа_Блюдо" FromRole="СтрокаЗаказа" ToRole="Блюдо" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK_СтрокаЗаказа_Заказ" FromRole="СтрокаЗаказа" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="ФотоБлюда">
+          <Key>
+            <PropertyRef Name="ИД_фото" />
+          </Key>
+          <Property Name="ИД_фото" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ИД_блюда" Type="Int32" Nullable="false" />
+          <Property Name="Фото_ссылка" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Блюдо" Relationship="Self.FK_ФотоБлюда_Блюдо" FromRole="ФотоБлюда" ToRole="Блюдо" />
+        </EntityType>
+        <Association Name="FK_СтрокаЗаказа_Блюдо">
+          <End Role="Блюдо" Type="Self.Блюдо" Multiplicity="1" />
+          <End Role="СтрокаЗаказа" Type="Self.СтрокаЗаказа" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюдо">
+              <PropertyRef Name="ИД_блюда" />
+            </Principal>
+            <Dependent Role="СтрокаЗаказа">
+              <PropertyRef Name="ИД_блюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ФотоБлюда_Блюдо">
+          <End Role="Блюдо" Type="Self.Блюдо" Multiplicity="1" />
+          <End Role="ФотоБлюда" Type="Self.ФотоБлюда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюдо">
+              <PropertyRef Name="ИД_блюда" />
+            </Principal>
+            <Dependent Role="ФотоБлюда">
+              <PropertyRef Name="ИД_блюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заказ_Пользователь">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="ИД_пользователь" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИД_пользователь" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_СтрокаЗаказа_Заказ">
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="1" />
+          <End Role="СтрокаЗаказа" Type="Self.СтрокаЗаказа" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заказ">
+              <PropertyRef Name="ИД_заказа" />
+            </Principal>
+            <Dependent Role="СтрокаЗаказа">
+              <PropertyRef Name="ИД_заказа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Ресторан1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Блюдо" EntityType="Self.Блюдо" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+          <EntitySet Name="Пользователь" EntityType="Self.Пользователь" />
+          <EntitySet Name="СтрокаЗаказа" EntityType="Self.СтрокаЗаказа" />
+          <EntitySet Name="ФотоБлюда" EntityType="Self.ФотоБлюда" />
+          <AssociationSet Name="FK_СтрокаЗаказа_Блюдо" Association="Self.FK_СтрокаЗаказа_Блюдо">
+            <End Role="Блюдо" EntitySet="Блюдо" />
+            <End Role="СтрокаЗаказа" EntitySet="СтрокаЗаказа" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ФотоБлюда_Блюдо" Association="Self.FK_ФотоБлюда_Блюдо">
+            <End Role="Блюдо" EntitySet="Блюдо" />
+            <End Role="ФотоБлюда" EntitySet="ФотоБлюда" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заказ_Пользователь" Association="Self.FK_Заказ_Пользователь">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_СтрокаЗаказа_Заказ" Association="Self.FK_СтрокаЗаказа_Заказ">
+            <End Role="Заказ" EntitySet="Заказ" />
+            <End Role="СтрокаЗаказа" EntitySet="СтрокаЗаказа" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Ресторан1ModelContainer" CdmEntityContainer="Ресторан1Entities">
+          <EntitySetMapping Name="Блюдо">
+            <EntityTypeMapping TypeName="Ресторан1Model.Блюдо">
+              <MappingFragment StoreEntitySet="Блюдо">
+                <ScalarProperty Name="ИД_блюда" ColumnName="ИД_блюда" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заказ">
+            <EntityTypeMapping TypeName="Ресторан1Model.Заказ">
+              <MappingFragment StoreEntitySet="Заказ">
+                <ScalarProperty Name="ИД_заказа" ColumnName="ИД_заказа" />
+                <ScalarProperty Name="ИД_пользователь" ColumnName="ИД_пользователь" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователь">
+            <EntityTypeMapping TypeName="Ресторан1Model.Пользователь">
+              <MappingFragment StoreEntitySet="Пользователь">
+                <ScalarProperty Name="ИД_пользователь" ColumnName="ИД_пользователь" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Эл_почта" ColumnName="Эл.почта" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="СтрокаЗаказа">
+            <EntityTypeMapping TypeName="Ресторан1Model.СтрокаЗаказа">
+              <MappingFragment StoreEntitySet="СтрокаЗаказа">
+                <ScalarProperty Name="ИД_строкаЗаказа" ColumnName="ИД_строкаЗаказа" />
+                <ScalarProperty Name="ИД_заказа" ColumnName="ИД_заказа" />
+                <ScalarProperty Name="ИД_блюда" ColumnName="ИД_блюда" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ФотоБлюда">
+            <EntityTypeMapping TypeName="Ресторан1Model.ФотоБлюда">
+              <MappingFragment StoreEntitySet="ФотоБлюда">
+                <ScalarProperty Name="ИД_фото" ColumnName="ИД_фото" />
+                <ScalarProperty Name="ИД_блюда" ColumnName="ИД_блюда" />
+                <ScalarProperty Name="Фото_ссылка" ColumnName="Фото_ссылка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
